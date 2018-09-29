@@ -86,6 +86,17 @@ let share_arr=[
    }
 ]
 
+let share_group_arr=[
+  {
+   title: '群成员打飞机的成绩快来看看吧',
+   imageUrl:"images/share.jpg"
+  },
+  {
+    title: '看看你在群里排第几,究竟谁在独领风骚',
+    imageUrl:"images/share.jpg"
+   }
+]
+
 //朋友,你旁边有人吗?没人的话快来一局打飞机呀!
 
 //朋友,还记得之前的经典游戏飞机大战吗?它又回来了
@@ -103,6 +114,23 @@ window.sharedata =function()
     //console.log("随机:"+a);
 
     let data=share_arr[rand];
+
+   // console.log("数据:"+data);
+
+     return data;
+}
+
+window.sharegroupdata =function()
+{
+
+    //console.log("分享列表:"+share_arr);
+    //console.log("列表长度:"+share_arr.length);
+
+    let rand = parseInt(Math.random() * share_group_arr.length);
+
+    //console.log("随机:"+a);
+
+    let data=share_group_arr[rand];
 
    // console.log("数据:"+data);
 

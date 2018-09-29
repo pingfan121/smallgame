@@ -5,9 +5,9 @@ import sprite from '../../base/sprite'
 let that = null;
 
 
-let btn_group = new Button("images/btn_start.png", (canvas.width - 200) / 2, (canvas.width - 200) / 2/1078*320);
+let btn_back = new Button("images/btn_back.png", (canvas.width - 200) / 2/1078*320, (canvas.width - 200) / 2/1078*320);
 
-let btn_group2 = new Button("images/btn_rank.png", (canvas.width - 200) / 2, (canvas.width - 200) / 2 / 1078 * 320);
+let btn_start= new Button("images/btn_start.png", (canvas.width - 200) / 2, (canvas.width - 200) / 2 / 1078 * 320);
 
 let btn_last = new Button("images/btn_lastpage.png",48,48, 750/2-30 -48,  canvas.height/20*3 +canvas.height / 10 * 6-60);
 let btn_next = new Button("images/btn_nextpage.png",48,48, 750/2+30,  canvas.height/20*3 +canvas.height / 10 * 6-60);
@@ -21,16 +21,16 @@ export default class FriendPage extends sprite {
   constructor(main) {
     super();
     that = this;
-    btn_group.x = 50;
-    btn_group.y = canvas.height / 20 * 17 + (canvas.height / 20 * 3 - 101) / 2;
+    btn_back.x = 50+50;
+    btn_back.y = canvas.height / 20 * 17 + (canvas.height / 20 * 3 - 101) / 2;
 
-    btn_group2.x = 150 + (canvas.width - 200) / 2;
-    btn_group2.y = canvas.height / 20 * 17 + (canvas.height / 20 * 3 - 101) / 2;
+    btn_start.x = 150 + (canvas.width - 200) / 2-50;
+    btn_start.y = canvas.height / 20 * 17 + (canvas.height / 20 * 3 - 101) / 2;
 
    
 
-    btn_group.btnclick = this.onback.bind(this);
-    btn_group2.btnclick = this.ongroupshow.bind(this);
+    btn_back.btnclick = this.onback.bind(this);
+    btn_start.btnclick = this.onstart.bind(this);
 
     btn_last.btnclick=this.lastPage.bind(this);
     btn_next.btnclick=this.nextPage.bind(this);
@@ -75,17 +75,20 @@ export default class FriendPage extends sprite {
    ctx.fillStyle = 'white';
    ctx.fillText("每周一凌晨刷新", 80, canvas.height/20*3+canvas.height/40);
 
-    btn_group.draw(ctx);
-    btn_group2.draw(ctx);
+    btn_back.draw(ctx);
+    btn_start.draw(ctx);
 
     btn_last.draw(ctx);
     btn_next.draw(ctx);
   }
 
-  show() {
+  show(score,maxscore) {
     super.show();
     //通知子域 显示好友排行
     openDataContext.postMessage({ key: "friendpage" });
+
+    this.score=score;
+    this.maxscore=maxscore;
   }
   hide()
   {
@@ -100,32 +103,24 @@ export default class FriendPage extends sprite {
       return;
     }
      
+    this.hide();
 
-    openDataContext.postMessage({ key: "clearcanvas" });
-
-    window.main.gameStart();
+    window.main.showendpage(this.score,this.maxscore);
 
   }
 
-  //群分享
-  ongroupshow(e) 
+  onstart(e) 
   {
     if (this.visible == false)
     {
       return;
     }
-   
+     
 
-    wx.updateShareMenu({
-      withShareTicket: true
-    })
+    openDataContext.postMessage({ key: "clearcanvas" });
 
-    setTimeout(function () {
-      wx.shareAppMessage(window.sharedata())
-    }, 100);
+    window.main.gameStart();
 
-
-    
   }
 
 

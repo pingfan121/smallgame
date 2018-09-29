@@ -3,13 +3,14 @@ import sprite from './sprite'
 
 export default class ColorSprite extends sprite
 {
-  constructor(color = 'white', width = 0, height = 0, x = 0, y = 0)
+  constructor(color = 'white', width = 0, height = 0, x = 0, y = 0,text="")
    {
     super("", width, height, x, y)
 
     this.color=color;
 
     this.btnclick=null;
+    this.text=text;
 
     this.down=false;
     this.initEvent();
@@ -92,6 +93,14 @@ export default class ColorSprite extends sprite
          this.width,
          this.height
        );
+
+       //画文字
+    ctx.font = "25px 微软雅黑";
+    ctx.fillStyle = 'white';
+    ctx.textAlign = "center";
+    ctx.textBaseline = 'middle';
+    ctx.fillText(this.text, this.x+this.width/2, this.y+this.height/2);
+       
 
    }
 

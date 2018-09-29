@@ -13,7 +13,12 @@ let ms = 0;
 let openDataContext = wx.getOpenDataContext()
 
 let s_rank = new ColorSprite('#425066', 650, 300, 50, 400);
-let s_ad = new ColorSprite('#425066', 650, 80, 50, 400 + 300 + 50);
+let s_ad = new ColorSprite('#425066', 650, 80, 50, 400 + 300 + 20+80+20,"分享有几率增加双排子弹的时间哦^_^");
+
+let s_share = new ColorSprite('#425066', (650-10)/3, 80, 50, 400 + 300 + 20,"分享给朋友");
+let s_group = new ColorSprite('#425066', (650-10)/3, 80, 50+(650-10)/3+5, 400 + 300 + 20,"查看群排行");
+
+let s_word = new ColorSprite('#425066', (650-10)/3, 80, 50+(650-10)/3+5+(650-10)/3+5, 400 + 300 + 20,"查看世界排行");
 
 
 
@@ -26,7 +31,7 @@ export default class EndPage extends sprite {
 
     this.visible = false;
     btn_again.x = (canvas.width - btn_again.width) / 2;
-    btn_again.y = canvas.height - 400;
+    btn_again.y = canvas.height - 350;
 
 
     btn_again.btnclick = this.startgame.bind(this);
@@ -34,6 +39,10 @@ export default class EndPage extends sprite {
     s_rank.btnclick = this.showrank.bind(this);
 
     s_ad.btnclick = this.showAd.bind(this);
+
+    s_share.btnclick=this.shareClick.bind(this);
+    s_group.btnclick=this.groupClick.bind(this);
+    s_word.btnclick=this.wordClick.bind(this);
 
     this.hide();
 
@@ -62,7 +71,7 @@ export default class EndPage extends sprite {
       return;
     }
     this.hide();
-    window.main.showFriendRank();
+    window.main.showFriendRank(gs,ms);
   }
 
   showAd(e) {
@@ -74,6 +83,57 @@ export default class EndPage extends sprite {
 
     
   }
+
+  // 分享按钮
+  shareClick(e) {
+    if (this.visible == false) {
+      return;
+    }
+
+    wx.updateShareMenu({
+      withShareTicket: false
+    })
+
+    setTimeout(function () {
+      wx.shareAppMessage(window.sharedata())
+    }, 100);
+
+    
+  }
+
+  // 查看群排行按钮
+   groupClick(e) 
+   {
+     if (this.visible == false)
+     {
+       return;
+     }
+    
+ 
+     wx.updateShareMenu({
+       withShareTicket: true
+     })
+ 
+     setTimeout(function () {
+       wx.shareAppMessage(window.sharegroupdata())
+     }, 100);
+   }
+
+   //查看世界排行
+   wordClick(e)
+   {
+    if (this.visible == false)
+    {
+      return;
+    }
+
+    wx.showToast({
+      title:"功能正在努力开发中",
+      icon:'none'
+    })
+   }
+
+
 
   draw(ctx) {
 
@@ -110,13 +170,17 @@ export default class EndPage extends sprite {
     s_rank.draw(ctx);
     s_ad.draw(ctx);
 
+    s_share.draw(ctx);
+    s_group.draw(ctx);
+    s_word.draw(ctx);
+
     //写上点击
     //历史得分
-    ctx.font = "25px 微软雅黑";
-    ctx.fillStyle = 'white';
-    ctx.textAlign = "center";
-    ctx.textBaseline = 'middle';
-    ctx.fillText("觉着游戏好玩记得点我分享给朋友哦 ^_^", canvas.width / 2, s_ad.y+s_ad.height/2);
+    // ctx.font = "25px 微软雅黑";
+    // ctx.fillStyle = 'white';
+    // ctx.textAlign = "center";
+    // ctx.textBaseline = 'middle';
+    // ctx.fillText("觉着游戏好玩记得点我分享给朋友哦 ^_^", canvas.width / 2, s_ad.y+s_ad.height/2);
 
   }
 

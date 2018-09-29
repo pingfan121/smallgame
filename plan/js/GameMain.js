@@ -267,6 +267,11 @@ export default class GameMain
         console.log("游戏结束了呀");
     }
 
+    showendpage(score,maxscore)
+    {
+        endpage.showview(score,maxscore);
+    }
+
     savedata()
     {
 
@@ -281,9 +286,9 @@ export default class GameMain
     
 
     //显示好友排行
-    showFriendRank()
+    showFriendRank(score,maxscore)
     {
-        friendpage.show();
+        friendpage.show(score,maxscore);
     }
     
     //显示群排行
