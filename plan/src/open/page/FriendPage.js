@@ -84,21 +84,22 @@ export default class FriendPage extends sprite {
       //删除不是这个星期的数据
       let delarr=[];
 
-      res.data.forEach((item, index) => {
+      res.data.forEach((item2, index) => {
 
-        item.KVDataList.forEach((item,index)=>{
+        item2.KVDataList.forEach((item,index)=>{
           if(item!=null && item.key=="scoretime")
           {
                 let date=new Date( item.value);
 
-                if( window.isSameWeek(date,new Date())==false)
+                if( window.isSameWeek(date,new Date())==true)
                 {
-                   delarr.push(item);
+                   delarr.push(item2);
+                   return false;
                 }
           }
       })});
 
-       delarr.forEach((item,index)=>{res.data.remove(item)});
+      res.data=delarr;
 
         res.data.forEach((item, index) => {
           item.img = new Image();

@@ -72,6 +72,9 @@ wx.onShow(function (res) {
     }
   })
 
+
+  res.shareTicket="";
+
 })
 
 
@@ -83,7 +86,15 @@ let share_arr=[
   {
     title: '朋友,还记得之前的经典游戏飞机大战吗?它又回来了',
     imageUrl:"images/share.jpg"
-   }
+  },
+  {
+    title: '放假回家的路上是不是太无聊,赶快来一局打飞机吧',
+    imageUrl:"images/share.jpg"
+  },
+  {
+    title: '你每天面对生活工作,是否充满了焦虑和压力,现在好了,玩玩打飞机可以帮你轻松减压',
+    imageUrl:"images/share.jpg"
+  }
 ]
 
 let share_group_arr=[

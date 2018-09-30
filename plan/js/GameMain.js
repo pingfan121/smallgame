@@ -25,8 +25,8 @@ let gamepage=new GamePage();       //游戏页面
 let btn_zanting=new Button("images/zanting.png",64,64,10,70);  //暂停按钮
 let btn_jixu=new Button("images/jixu.png",64,64,10,70);        //继续按钮
 
-let btn_gbsy=new Button("images/gbsy.png",64,64,10,140);       //关闭声音按钮
-let btn_dksy=new Button("images/dksy.png",64,64,10,140);       //打开声音按钮
+let btn_gbsy=new Button("images/dksy.png",64,64,10,140);       //关闭声音按钮
+let btn_dksy=new Button("images/gbsy.png",64,64,10,140);       //打开声音按钮
 
 let btn_share=new Button("images/btn_share.png",64,64,10,210);       //分享按钮
 
