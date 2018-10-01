@@ -13,19 +13,27 @@ let ms = 0;
 let openDataContext = wx.getOpenDataContext()
 
 let s_rank = new ColorSprite('#425066', 650, 300, 50, 400);
-let s_ad = new ColorSprite('#425066', 650, 80, 50, 400 + 300 + 20+80+20,"分享有几率增加双排子弹的时间哦^_^");
+let s_ad = new ColorSprite('#425066', 650, 80, 50, 400 + 300 + 20+80+20,"点我设置掉落词组");
 
 let s_share = new ColorSprite('#425066', (650-10)/3, 80, 50, 400 + 300 + 20,"分享给朋友");
 let s_group = new ColorSprite('#425066', (650-10)/3, 80, 50+(650-10)/3+5, 400 + 300 + 20,"查看群排行");
 
 let s_word = new ColorSprite('#425066', (650-10)/3, 80, 50+(650-10)/3+5+(650-10)/3+5, 400 + 300 + 20,"查看世界排行");
 
+let { screenWidt,screenHeight } = wx.getSystemInfoSync();
 
+let bannerAd = null;
+
+let bannerAd2= wx.createRewardedVideoAd({ adUnitId: 'adunit-e80d2e69e5b09526' });
+
+let that=null;
 
 export default class EndPage extends sprite {
 
   constructor() {
     super();
+
+    that=this;
 
     console.log("宽:" + canvas.width);
 
@@ -46,6 +54,19 @@ export default class EndPage extends sprite {
 
     this.hide();
 
+    bannerAd2.onClose(res => {
+      // 用户点击了【关闭广告】按钮
+      // 小于 2.1.0 的基础库版本，res 是一个 undefined
+      if (res && res.isEnded || res === undefined) {
+        // 正常播放结束，可以下发游戏奖励
+         that.hide();
+         window.main.showSetDropPage(gs,ms);
+      }
+      else {
+          // 播放中途退出，不下发游戏奖励
+      }
+  })
+
   }
   showview(score, maxscore) {
 
@@ -54,10 +75,40 @@ export default class EndPage extends sprite {
     this.show();
     openDataContext.postMessage({ key: "endpage" });
 
+    if(bannerAd!=null)
+    {
+      bannerAd.destroy();
+      bannerAd=null;
+    }
+
+    bannerAd =wx.createBannerAd({
+      adUnitId: 'adunit-41368c32d74b8ba2',
+      style: {
+          left: 0,
+          top: screenHeight-100,
+          width: screenWidt
+      }
+    })
+    
+
+   
+
+    bannerAd.show();
+
+    
+
   }
   hide() {
     super.hide();
     openDataContext.postMessage({ key: "clearcanvas" });
+
+    if(bannerAd!=null)
+    {
+      bannerAd.hide();
+      bannerAd.destroy();
+      bannerAd=null;
+    }
+
   }
   startgame(e) {
     if (this.visible == false) {
@@ -74,15 +125,20 @@ export default class EndPage extends sprite {
     window.main.showFriendRank(gs,ms);
   }
 
+
+  //设置掉落词组按钮
   showAd(e) {
     if (this.visible == false) {
       return;
     }
 
-    wx.shareAppMessage(window.sharedata());
+    //that.hide();
+    //window.main.showSetDropPage(gs,ms);
+   
 
-    
+    bannerAd2.show().catch(err => { bannerAd2.load().then(() => bannerAd2.show())});
   }
+
 
   // 分享按钮
   shareClick(e) {

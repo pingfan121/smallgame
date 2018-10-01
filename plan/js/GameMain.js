@@ -6,6 +6,9 @@ import GamePage from './gamejs/GamePage';
 import GroupPage from './gamejs/page/GroupPage';
 import Background from './gamejs/Background';
 import Button from './base/Button';
+import SetDropTextPage from './gamejs/page/SetDropTextPage';
+import TextEnemy from './gamejs/TextEnemy';
+
 
 
 let openDataContext = wx.getOpenDataContext()
@@ -19,7 +22,7 @@ let friendpage=new FriendPage();   //好友排行页面
 let grouppage=new GroupPage();     //群排行页面
 let gamepage=new GamePage();       //游戏页面
 
-
+let setdroppage=new SetDropTextPage(); //设置掉落文字界面
 
 
 let btn_zanting=new Button("images/zanting.png",64,64,10,70);  //暂停按钮
@@ -47,6 +50,7 @@ let maxscore=0;   //历史最大分
 
 let weekscore=0;  //每周最大分
 let lastweektime=null;
+
 
 export default class GameMain 
 {
@@ -190,6 +194,7 @@ export default class GameMain
         endpage.hide()
         friendpage.hide();
         grouppage.hide();
+        setdroppage.hide();
         
 
         gamepage.start();
@@ -238,7 +243,7 @@ export default class GameMain
 
         let currtime=new Date();
 
-        if(this.isSameWeek(lastweektime,currtime)==false)
+        if(window.isSameWeek(lastweektime,currtime)==false)
         {
             weekscore=0;
         }
@@ -267,23 +272,18 @@ export default class GameMain
         console.log("游戏结束了呀");
     }
 
+    getTextEnemyArr()
+    {
+        return setdroppage.getarr();
+    }
+
+
+    //显示结束页面
     showendpage(score,maxscore)
     {
         endpage.showview(score,maxscore);
     }
 
-    savedata()
-    {
-
-    }
-
-    isSameWeek(old,now){
-        var oneDayTime = 1000*60*60*24;
-        var old_count =parseInt(old.getTime()/oneDayTime);
-        var now_other =parseInt(now.getTime()/oneDayTime);
-            return parseInt((old_count+4)/7) == parseInt((now_other+4)/7);
-    }
-    
 
     //显示好友排行
     showFriendRank(score,maxscore)
@@ -300,6 +300,7 @@ export default class GameMain
              endpage.hide();
              friendpage.hide();
              gamepage.hide();
+             setdroppage.hide();
 
              btn_jixu.hide();
              btn_zanting.hide();
@@ -311,6 +312,13 @@ export default class GameMain
              
         }
     }
+
+    //显示设置掉落页面
+    showSetDropPage(score,maxscore)
+    {
+        setdroppage.show(score,maxscore);
+    }
+
 
     draw()
     {
@@ -327,6 +335,10 @@ export default class GameMain
 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+
+        
+
+      
         background.draw(ctx);
     
         gamepage.draw(ctx);
@@ -334,6 +346,8 @@ export default class GameMain
         endpage.draw(ctx);
         friendpage.draw(ctx);
         grouppage.draw(ctx);
+
+        setdroppage.draw(ctx);
         
         ctx.drawImage(sharedCanvas, 0, 0, canvas.width, canvas.height);
 
@@ -342,6 +356,7 @@ export default class GameMain
         btn_gbsy.draw(ctx);
         btn_dksy.draw(ctx);
         btn_share.draw(ctx);
+
 
        window.requestAnimationFrame(this.binddraw, canvas);
 

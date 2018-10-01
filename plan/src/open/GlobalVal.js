@@ -18,3 +18,15 @@ window.isSameWeek=function(old,now)
     return parseInt((old_count+4)/7) == parseInt((now_other+4)/7);
 }
 
+window.sliceText=function(text)
+{
+    if(text.length<=7)
+    {
+        return text;
+    }
+    else
+    {
+        return text.substr(0,5)+"...";
+    }
+}
+

@@ -77,7 +77,7 @@ export default class FriendPage extends sprite {
 
     wx.getGroupCloudStorage({
       shareTicket:shareTicket,
-      keyList: ['maxscore'],
+      keyList: ['maxscore','scoretime'],
       success: function (res) {
         
         console.log(res);
@@ -174,7 +174,7 @@ export default class FriendPage extends sprite {
      
       //绘制名字
       ctx.fillStyle = 'white';
-      ctx.fillText(item.nickname, xx + 30 + ii + 30, yy + index * ii + ii / 2);
+      ctx.fillText(window.sliceText(item.nickname), xx + 30 + ii + 30, yy + index * ii + ii / 2);
 
        //绘制分数
        ctx.fillText(item.KVDataList[0].value,  window.v_width - 100-100, yy + index * ii + ii / 2);

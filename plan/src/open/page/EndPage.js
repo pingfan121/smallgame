@@ -193,7 +193,7 @@ export default class EndPage extends sprite {
     ctx.textAlign = "center";
     ctx.textBaseline = 'middle';
     ctx.fillStyle = 'white';
-    ctx.fillText("" + item.nickname, xxx + ww / 2, yyy + 150);
+    ctx.fillText("" + window.sliceText(item.nickname), xxx + ww / 2, yyy + 150);
 
     // haufenshu 
 

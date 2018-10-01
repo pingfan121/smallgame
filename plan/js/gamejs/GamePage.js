@@ -48,6 +48,8 @@ export default class GamePage extends Sprite {
     props = [];     //所有的道具
     hero.init();
 
+    randobj.setTextArr(window.main.getTextEnemyArr());
+
     gamescore = 0;       //游戏得分
     that.gametime=0;
 

@@ -1,5 +1,6 @@
 import Prop from './Prop'
 import Enemy from './Enemy'
+import TextEnemy from './TextEnemy';
 
 
 //敌机图片
@@ -32,6 +33,14 @@ export default class RandObj2
     {
         this.main=main;
     }
+
+
+    setTextArr(arr)
+    {
+        this.arr=arr;
+    }
+
+    
 
     random(x, y) 
     {
@@ -101,13 +110,42 @@ export default class RandObj2
                 return enemy;
             }
         }
+        else if(num <= 55)
+        {
+            if(this.arr.length>0)
+            {
+
+                let index=this.random(0,this.arr.length-1);
+
+            
+
+
+                let item =this.arr[index];
+                //随机一个词
+                var randomX = this.random(0, canvas.width - 60);
+
+
+                var min=5;
+                var max = 18 - item.length;
+  
+                var curr=min+(max-min)*this.getSpeedRand()/100;
+                curr=Math.floor(curr);
+  
+                //随机速度
+                var randomSpeed = this.random(min, curr);
+                  
+                var enemy = new TextEnemy(randomX, -100, 0, 0, null, randomSpeed, item.length, item.length*100, 5,item);
+                  //记录飞机
+                  return enemy;
+            }
+        }
         return null;
     }
 
     //随机产生道具
     getProp() {
         //控制道具产生的概率
-        if (this.random(1, this.getEnemyRand()) <= 1)
+        if (this.random(1, this.getEnemyRand()) <= 2)
          {
             var randomX = this.random(0, canvas.width - 38);
             var randomType = this.random(0, 1);

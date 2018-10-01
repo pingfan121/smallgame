@@ -64,7 +64,7 @@ export default class Button extends sprite
         
         if(that.btnclick!=null)
         {
-          that.btnclick(e);
+          that.btnclick(that);
         }
       }
       that.down = false;
