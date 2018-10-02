@@ -20,13 +20,20 @@ window.isSameWeek=function(old,now)
 
 window.sliceText=function(text)
 {
-    if(text.length<=7)
+    try
     {
-        return text;
+        if(text.length<=7)
+        {
+            return text;
+        }
+        else
+        {
+            return text.substr(0,5)+"...";
+        }
     }
-    else
+    catch(e)
     {
-        return text.substr(0,5)+"...";
+        return "";
     }
 }
 

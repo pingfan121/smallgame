@@ -1,13 +1,15 @@
 import FriendPage from './page/FriendPage'
 import GroupPage from './page/GroupPage';
 import EndPage from './page/EndPage';
+import WordPage from './page/WordPage';
 
 
 let that=null;
 
 let friendpage=new FriendPage();
 let grouppage=new GroupPage();
-let endpage=new EndPage
+let endpage=new EndPage();
+let wordpage=new WordPage();
 
 export default class Main 
 {
@@ -42,6 +44,26 @@ export default class Main
        case "friendpage_next":
        {
            friendpage.nextPage();
+           break;
+       }
+       case "wordpage":
+       {
+           wordpage.show();
+           break;
+       }
+       case "wordpage_last":
+       {
+           wordpage.lastPage();
+           break;
+       }
+       case "wordpage_next":
+       {
+           wordpage.nextPage();
+           break;
+       }
+       case "worddata":
+       {
+           wordpage.setWordData(data.data);
            break;
        }
        case "grouppage":

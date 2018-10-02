@@ -183,10 +183,13 @@ export default class EndPage extends sprite {
       return;
     }
 
-    wx.showToast({
-      title:"功能正在努力开发中",
-      icon:'none'
-    })
+    // wx.showToast({
+    //   title:"功能正在努力开发中",
+    //   icon:'none'
+    // })
+    this.hide();
+    window.main.showWordPage(gs,ms);
+
    }
 
 

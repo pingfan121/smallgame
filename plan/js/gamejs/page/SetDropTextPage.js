@@ -82,6 +82,11 @@ export default class SetDropTextPage extends sprite
 
   btnClick(btn)
   {
+    if(this.visible==false)
+    {
+      return;
+    }
+
          btns.forEach((item,index) => {
            if(item==btn)
            {
@@ -94,6 +99,11 @@ export default class SetDropTextPage extends sprite
 
   addWord()
   {
+
+    if(this.visible==false)
+    {
+      return;
+    }
 
 
     if(words.length>=max)

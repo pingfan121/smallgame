@@ -27,4 +27,22 @@ window.isSameWeek=function(old,now)
     var now_other =parseInt(now.getTime()/oneDayTime);
     return parseInt((old_count+4)/7) == parseInt((now_other+4)/7);
 }
-
+window.sliceText=function(text)
+{
+    try
+    {
+        if(text.length<=7)
+        {
+            return text;
+        }
+        else
+        {
+            return text.substr(0,5)+"...";
+        }
+    }
+    catch(e)
+    {
+        return "";
+    }
+   
+}

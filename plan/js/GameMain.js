@@ -7,7 +7,7 @@ import GroupPage from './gamejs/page/GroupPage';
 import Background from './gamejs/Background';
 import Button from './base/Button';
 import SetDropTextPage from './gamejs/page/SetDropTextPage';
-import TextEnemy from './gamejs/TextEnemy';
+import WordRankPage from './gamejs/page/WordRankPage';
 
 
 
@@ -21,6 +21,7 @@ let endpage=new EndPage();         //结束页面
 let friendpage=new FriendPage();   //好友排行页面
 let grouppage=new GroupPage();     //群排行页面
 let gamepage=new GamePage();       //游戏页面
+let wordrankpage=new WordRankPage(); //世界排行
 
 let setdroppage=new SetDropTextPage(); //设置掉落文字界面
 
@@ -140,7 +141,7 @@ export default class GameMain
     {
         try 
         {
-            maxscore = wx.getStorageSync('maxscore');
+            maxscore = wx.getStorageSync('maxscore2');
       
             if (maxscore == undefined) 
             {
@@ -195,6 +196,7 @@ export default class GameMain
         friendpage.hide();
         grouppage.hide();
         setdroppage.hide();
+        wordrankpage.hide();
         
 
         gamepage.start();
@@ -229,6 +231,7 @@ export default class GameMain
         btn_gbsy.hide();
         btn_share.hide();
         gamepage.hide();
+        wordrankpage.hide();
 
 
         if(score>maxscore)
@@ -236,7 +239,16 @@ export default class GameMain
             maxscore=score;
 
              //保存游戏数据
-            wx.setStorage({ key: "maxscore", data: maxscore })
+            wx.setStorage({ key: "maxscore2", data: maxscore })
+
+            //保存到云端
+            wx.cloud.callFunction({
+                name: 'SetScore',
+               
+                data: {      
+                  data:{"score":maxscore}
+                }
+              });
         }
 
         //检测上次时间 和这次时间  有没有跨周
@@ -301,6 +313,7 @@ export default class GameMain
              friendpage.hide();
              gamepage.hide();
              setdroppage.hide();
+             wordrankpage.hide();
 
              btn_jixu.hide();
              btn_zanting.hide();
@@ -317,6 +330,12 @@ export default class GameMain
     showSetDropPage(score,maxscore)
     {
         setdroppage.show(score,maxscore);
+    }
+
+    //显示shijie页面
+    showWordPage(score,maxscore)
+    {
+        wordrankpage.show(score,maxscore);
     }
 
 
@@ -348,6 +367,7 @@ export default class GameMain
         grouppage.draw(ctx);
 
         setdroppage.draw(ctx);
+        wordrankpage.draw(ctx);
         
         ctx.drawImage(sharedCanvas, 0, 0, canvas.width, canvas.height);
 
@@ -356,7 +376,6 @@ export default class GameMain
         btn_gbsy.draw(ctx);
         btn_dksy.draw(ctx);
         btn_share.draw(ctx);
-
 
        window.requestAnimationFrame(this.binddraw, canvas);
 

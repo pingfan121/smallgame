@@ -5,6 +5,8 @@ import './js/gamejs/GlobalVal'
 import GameMain from './js/GameMain'
 
 
+wx.cloud.init();
+
 wx.showShareMenu();
 
 wx.onShareAppMessage( function()
@@ -147,3 +149,31 @@ window.sharegroupdata =function()
 
      return data;
 }
+
+//wx.cloud.init();
+
+// wx.cloud.callFunction({
+//   name: 'SetScore',
+//   //点赞需要的参数:
+//   // 点赞数 +1
+//   // 该条的id
+//   data: {      
+//     a:1,
+//     b:2         
+//   },
+//   success: res => {
+//     wx.showToast({
+//       title: '点赞成功',
+//     })
+    
+//     console.log(res);
+
+//   },
+//   fail: err => {
+//     wx.showToast({
+//       icon: 'none',
+//       title: '点赞失败',
+//     })
+//     console.error('[云函数]  调用失败：', err)
+//   }
+// });
