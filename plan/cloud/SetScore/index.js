@@ -6,7 +6,7 @@ cloud.init()
 
 let db=cloud.database();
 
-let lasttime =new Date();
+let lasttime = new Date().getMilliseconds();
 
 let isSameWeek = function (old, now) {
   var oneDayTime = 1000 * 60 * 60 * 24;
@@ -29,7 +29,7 @@ exports.main = async (event, context) => {
     await db.collection('score').where().remove();
   }
 
-  lasttime = new Date();
+  lasttime = new Date().getMilliseconds();
 
   let openId = event.userInfo.openId;
   event.data.time = lasttime;
@@ -60,7 +60,7 @@ exports.main = async (event, context) => {
   {
     //有了这个人的数据  更新
    
-      await db.collection('score').update({
+    await db.collection('score').where({ _openid: openId}).update({
         // data 字段表示需新增的 JSON 数据
         data: event.data
       })

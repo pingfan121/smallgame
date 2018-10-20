@@ -111,5 +111,6 @@ export default class Main
     endpage.hide();
     friendpage.hide();
     grouppage.hide();
+    wordpage.hide();
   }
 }

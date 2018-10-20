@@ -5,20 +5,24 @@ cloud.init();
 
 let db = cloud.database();
 
+let _ = db.command;
+
 // 云函数入口函数
 exports.main = async (event, context) => {
 
   let openId = event.userInfo.openId;
 
+
+
   try {
     
       //还没有这个人的数据 插入
 
-    let list = await db.collection('score').field({ _openid: true, score: true }).limit(50).get();
+    let list = await db.collection('score').orderBy('score', 'desc').field({ _openid: true, score: true }).limit(50).get();
 
       //得到自己的数据
 
-      let mydata = await db.collection('score').where({ _openid: openId }).field({_openid: true,score: true}).get();
+    let mydata = await db.collection('score').where({ _openid: openId }).get();
 
       let index=-11;
 
@@ -31,7 +35,7 @@ exports.main = async (event, context) => {
       else
       {
 
-        let result =await db.collection('score').where({ score: db.command.gte(mydata.score), time: db.command.gt(mydata.time) }).count();
+        let result = await db.collection('score').where({ score: _.gt(mydata.data[0].score)}).count();
 
         index = result.total+1;
 

@@ -89,11 +89,14 @@ export default class WordPage extends sprite {
                     temp.nickName=res.data[0].nickName;
 
                     //下载图片
-                    temp.img.src = res.data[0].avatarUrl;
-                    temp.img.onload = function () {
-                        that.draw();
-                        console.log("下载好了11");
-                        }
+                    if(res.data[0].avatarUrl!="")
+                    {
+                        temp.img.src = res.data[0].avatarUrl;
+                        temp.img.onload = function () {
+                            that.draw();
+                            console.log("下载好了11");
+                            }
+                    }
 
                     })
                 } );
@@ -117,12 +120,16 @@ export default class WordPage extends sprite {
 
                 temp.nickName=res.data[0].nickName;
                 //下载图片
-                temp.img.src = res.data[0].avatarUrl;
-                temp.img.onload = function () {
-                    that.draw();
-
-                    console.log("下载好了22");
-                    }
+                if(res.data[0].avatarUrl!="")
+                {
+                    temp.img.src = res.data[0].avatarUrl;
+                    temp.img.onload = function () {
+                        that.draw();
+    
+                        console.log("下载好了22");
+                        }
+                }
+               
 
                 })
             });

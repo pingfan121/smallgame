@@ -17,8 +17,8 @@ export default class Background
     
     draw(ctx)
     {
-        var row = Math.ceil(canvas.height / 568);
-        var col = Math.ceil((canvas.width + 40) / 320);
+        var row = 1;
+        var col = 1;
         //2.循环添加图片
         //为了保证图片无限滚动, 画两张一样的背景图
         for (var i = -row; i < row; i++) { //行

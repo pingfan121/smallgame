@@ -99,38 +99,6 @@ export default class WordRankPage extends sprite {
 
            openDataContext.postMessage({ key: "worddata",data:res.result});
     
-        //    if(res.result.list!=null && res.result.list.length>0)
-        //    {
-        //       res.result.list.forEach((item, index) => {
-        //         item.img = new Image();
-    
-        //         let temp =item;
-       
-        //         arr.push(item);
-                
-        //           wx.getUserInfo({
-        //             openIdList: [item._openid],
-        //             lang: 'zh_CN',
-        //             success: (res => {
-        //                 console.log('success', res.data[0]);
-    
-        //                 temp.nickName=res.data[0].nickName;
-    
-        //                 //下载图片
-        //                 temp.img.src = res.data[0].avatarUrl;
-        //                 temp.img.onload = function () {
-        //                     that.draw();
-        //                   }
-
-        //                }),
-        //             fail: (res) => {
-        //                 console.log(res)
-        //             }
-        //             } );
-    
-                  
-        //         });
-        //     }
          })
   }
   hide()
